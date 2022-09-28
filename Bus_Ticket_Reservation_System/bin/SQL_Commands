@@ -1,0 +1,32 @@
+create table administrator
+(
+aId int primary key,
+aName varchar(12) NOT NULL,
+aAddr varchar(20) NOT NULL,
+aEmail varchar(30) NOT NULL,
+aPass varchar(12) NOT NULL
+);
+
+create table buses
+(
+bId int NOT NULL,
+bName varchar(20) NOT NULL,
+bRoute varchar(40) NOT NULL,
+bType varchar(10) NOT NULL,
+bSeats int NOT NULL,
+bDeptDateTime datetime NOT NULL, 
+bArriDateTime datetime NOT NULL,
+bAdminId int NOT NULL,
+FOREIGN KEY (bAdminId) REFERENCES administrator(aId),
+CONSTRAINT CHK_Bus_Type CHECK 
+(
+bType = 'AC' OR bType = 'NONAC'
+),
+CONSTRAINT CHK_Id_Name CHECK 
+(
+bId = 1000 AND bName = 'Neeta' OR 
+bId = 2000 AND bName = 'SRS' OR 
+bId = 3000 AND bName = 'Red' OR 
+bId = 4000 AND bName = 'Airavat')
+);
+
