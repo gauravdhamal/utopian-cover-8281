@@ -1,13 +1,17 @@
 package com.utopian.dao;
 
-import com.utopian.bean.Administrator;
-import com.utopian.utility.DBUtil;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.utopian.bean.Administrator;
+import com.utopian.exception.AdminException;
+import com.utopian.utility.DBUtil;
 
 public class AdministratorDaoImpl implements AdministratorDao {
 
+	@Override
 	public String registerAdmin1(int id, String name, String addr, String email, String password) {
 		String message = "Not registered.";
 
@@ -35,6 +39,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
 		return message;
 	}
 
+	@Override
 	public String registerAdmin2(Administrator admin) {
 
 		String message = "Not registered.";
@@ -62,4 +67,40 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
 		return message;
 	}
+
+	@Override
+	public Administrator loginAdmin(String email, String password) throws AdminException {
+
+		Administrator admin = null;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM administrator WHERE aEmail = ? AND aPass = ?");
+
+			ps.setString(1, email);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int aId = rs.getInt("aId");
+				String aName = rs.getString("aName");
+				String aAddr = rs.getString("aAddr");
+				String aEmail = rs.getString("aEmail");
+				String aPass = rs.getString("aPass");
+
+				admin = new Administrator(aId, aName, aAddr, aEmail, aPass);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		if (admin == null)
+			throw new AdminException("Admin details missmatch.");
+
+		return admin;
+	}
+
+
 }

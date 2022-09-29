@@ -11,7 +11,8 @@ create table buses
 (
 bId int NOT NULL,
 bName varchar(20) NOT NULL,
-bRoute varchar(40) NOT NULL,
+bRoute_From varchar(40) NOT NULL,
+bRoute_To varchar(40) NOT NULL,
 bType varchar(10) NOT NULL,
 bSeats int NOT NULL,
 bDeptDateTime datetime NOT NULL, 
@@ -30,3 +31,22 @@ bId = 3000 AND bName = 'Red' OR
 bId = 4000 AND bName = 'Airavat')
 );
 
+
+username And pass.
+g@gmail.com
+g@123
+
+
+create table customers
+(
+mob varchar(10) NOT NULL,
+bId int NOT NULL,
+bName varchar(20) NOT NULL,
+bRoute_From varchar(40) NOT NULL,
+bRoute_To varchar(40) NOT NULL,
+bType varchar(10) NOT NULL,
+bookedSeats int NOT NULL,
+bDeptDateTime datetime NOT NULL, 
+bArriDateTime datetime NOT NULL,
+bAdminId int NOT NULL
+);

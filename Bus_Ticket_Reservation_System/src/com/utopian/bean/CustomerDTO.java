@@ -1,32 +1,44 @@
 package com.utopian.bean;
 
-public class Bus {
+public class CustomerDTO {
 
+	private String cMob;
 	private int bId;
 	private String bName;
 	private String bRoute_From;
 	private String bRoute_To;
 	private String bType;
-	private int bSeats;
+	private int bookedSeats;
 	private String bDeptDateTime;
 	private String bArriDateTime;
 	private int bAdminId;
 
-	public Bus() {
+	public CustomerDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Bus(int bId, String bName, String bRoute_From, String bRoute_To, String bType, int bSeats,
-			String bDeptDateTime, String bArriDateTime, int bAdminId) {
+	public CustomerDTO(String cMob, int bId, String bName, String bRoute_From, String bRoute_To, String bType,
+			int bookedSeats, String bDeptDateTime, String bArriDateTime, int bAdminId) {
 		super();
+		this.cMob = cMob;
 		this.bId = bId;
 		this.bName = bName;
 		this.bRoute_From = bRoute_From;
 		this.bRoute_To = bRoute_To;
 		this.bType = bType;
-		this.bSeats = bSeats;
+		this.bookedSeats = bookedSeats;
 		this.bDeptDateTime = bDeptDateTime;
 		this.bArriDateTime = bArriDateTime;
 		this.bAdminId = bAdminId;
+	}
+
+	public String getcMob() {
+		return cMob;
+	}
+
+	public void setcMob(String cMob) {
+		this.cMob = cMob;
 	}
 
 	public int getbId() {
@@ -69,12 +81,12 @@ public class Bus {
 		this.bType = bType;
 	}
 
-	public int getbSeats() {
-		return bSeats;
+	public int getBookedSeats() {
+		return bookedSeats;
 	}
 
-	public void setbSeats(int bSeats) {
-		this.bSeats = bSeats;
+	public void setBookedSeats(int bookedSeats) {
+		this.bookedSeats = bookedSeats;
 	}
 
 	public String getbDeptDateTime() {
@@ -103,9 +115,9 @@ public class Bus {
 
 	@Override
 	public String toString() {
-		return "Bus [bId=" + bId + ", bName=" + bName + ", bRoute_From=" + bRoute_From + ", bRoute_To=" + bRoute_To
-				+ ", bType=" + bType + ", bSeats=" + bSeats + ", bDeptDateTime=" + bDeptDateTime + ", bArriDateTime="
-				+ bArriDateTime + ", bAdminId=" + bAdminId + "]";
+		return "Customer [cMob=" + cMob + ", bId=" + bId + ", bName=" + bName + ", bRoute_From=" + bRoute_From
+				+ ", bRoute_To=" + bRoute_To + ", bType=" + bType + ", bookedSeats=" + bookedSeats + ", bDeptDateTime="
+				+ bDeptDateTime + ", bArriDateTime=" + bArriDateTime + ", bAdminId=" + bAdminId + "]";
 	}
 
 }
