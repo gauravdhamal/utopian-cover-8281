@@ -10,14 +10,25 @@ public class BTMS {
 
 	public static void selectOption() {
 
-		System.out.println("\nSelect an option to continue...");
+		System.out.println("\n<><><><>---- Main Menu ----<><><><>\n");
 
-		System.out.println("\n1. View all buses.\n2. Book a ticket.\n3. Cancel a ticket.\n10. Exit.");
+		System.out.println("0. For Adding/Removing bus.");
+		System.out.println("1. View all buses.");
+		System.out.println("2. Book a ticket.");
+		System.out.println("3. Cancel a ticket.");
+		System.out.println("5. Exit");
 
 		Scanner scan = new Scanner(System.in);
 		int choice = scan.nextInt();
+		scan.nextLine();
 
 		switch (choice) {
+
+		case 0:
+			BTMSAdmin.selectOption();
+
+			BTMS.selectOption();
+			break;
 
 		case 1:
 			service.viewBuses();
@@ -26,7 +37,7 @@ public class BTMS {
 			break;
 
 		case 2:
-			scan.nextLine();
+
 			System.out.print("Enter source location : ");
 			String source = scan.nextLine();
 
@@ -40,22 +51,21 @@ public class BTMS {
 			System.out.print("Enter your mobile no : ");
 			String mobileNo = scan.nextLine();
 
-			String result = service.book(source, destination, tickets);
-			System.out.println(result);
-
-			if (result.equals("Ticket booked sucessfully.")) {
-				service.addCustomerRecord(source, destination, mobileNo, tickets);
-			}
+			service.book(source, destination, tickets, mobileNo);
 
 			BTMS.selectOption();
 			break;
 
 		case 3:
+			System.out.print("Enter your Mobile No :");
+			String mob = scan.nextLine();
+
+			service.getBookings(mob);
 
 			BTMS.selectOption();
 			break;
 
-		case 10:
+		case 5:
 			System.out.println("Thank You...!!!");
 			break;
 

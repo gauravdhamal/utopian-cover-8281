@@ -6,6 +6,7 @@ import com.utopian.bean.Administrator;
 import com.utopian.dao.AdministratorDao;
 import com.utopian.dao.AdministratorDaoImpl;
 import com.utopian.exception.AdminException;
+import com.utopian.main.Application;
 import com.utopian.main.BTMS;
 
 public class LoginAdminUseCase {
@@ -24,13 +25,14 @@ public class LoginAdminUseCase {
 
 		try {
 			Administrator admin = aDao.loginAdmin(email, pass);
-			
-			System.out.println("Congrats "+admin.getaName()+" you logged in successfully.");
-			
+
+			System.out.println("Congrats " + admin.getaName() + " you logged in successfully.");
+
 			BTMS.selectOption();
-			
+
 		} catch (AdminException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + "\nEnter Details again\n");
+			Application.main(null);
 		}
 
 	}

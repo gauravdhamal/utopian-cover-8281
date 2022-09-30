@@ -9,7 +9,7 @@ aPass varchar(12) NOT NULL
 
 create table buses
 (
-bId int NOT NULL,
+bId int PRIMARY KEY,
 bName varchar(20) NOT NULL,
 bRoute_From varchar(40) NOT NULL,
 bRoute_To varchar(40) NOT NULL,
@@ -18,6 +18,8 @@ bSeats int NOT NULL,
 bDeptDateTime datetime NOT NULL, 
 bArriDateTime datetime NOT NULL,
 bAdminId int NOT NULL,
+bConPerName varchar(12) NOT NULL,
+bConPerMob varchar(10) NOT NULL,
 FOREIGN KEY (bAdminId) REFERENCES administrator(aId),
 CONSTRAINT CHK_Bus_Type CHECK 
 (
@@ -25,11 +27,31 @@ bType = 'AC' OR bType = 'NONAC'
 ),
 CONSTRAINT CHK_Id_Name CHECK 
 (
-bId = 1000 AND bName = 'Neeta' OR 
-bId = 2000 AND bName = 'SRS' OR 
-bId = 3000 AND bName = 'Red' OR 
-bId = 4000 AND bName = 'Airavat')
+bId = 1000 AND bName = 'NEETA' OR 
+bId = 2000 AND bName = 'SRS TRAVELS' OR 
+bId = 3000 AND bName = 'REDBUS' OR 
+bId = 4000 AND bName = 'AIRAVAT' OR
+bId = 5000 AND bName = 'VOLVO' OR
+bId = 6000 AND bName = 'BHARAT BENZ' OR
+bId = 7000 AND bName = 'ASHOK LEYLAND' OR
+bId = 8000 AND bName = 'MAHINDRA' OR
+bId = 9000 AND bName = 'TATA' OR
+bId = 10000 AND bName = 'FORCE'
+)
 );
+
+Buses queries. 
+INSERT INTO buses VALUES(1000,'Neeta','Mumbai','Pune','AC',10,'2022-10-02 10:00:00','2022-10-02 12:00:00',1,'Vishal',9898767665);
+INSERT INTO buses VALUES(2000,'SRS Travels','Mumbai','Bangalore','AC',15,'2022-10-02 13:00:00','2022-10-02 15:00:00',1,'Amit',7676545443);
+INSERT INTO buses VALUES(3000,'REDBUS','Mumbai','Jaipur','AC',25,'2022-10-05 11:30:00','2022-10-05 09:30:00',1,'Pratik',8686787878);
+INSERT INTO buses VALUES(10000,'FORCE','Mumbai','Delhi','NONAC',20,'2022-10-02 11:00:00','2022-10-02 16:00:00',1,'Kiran',6767898987);
+INSERT INTO buses VALUES(4000,'Airavat','Mumbai','Gujrat','AC',25,'2022-10-03 11:00:00','2022-10-03 16:00:00',1,'Aman',5656665656);
+INSERT INTO buses VALUES(5000,'Volvo','Mumbai','Noida','NONAC',15,'2022-10-03 08:00:00','2022-10-03 11:00:00',1,'Chiman',3434343434);
+INSERT INTO buses VALUES(6000,'Bharat Benz','Mumbai','Satara','AC',10,'2022-10-03 12:00:00','2022-10-03 14:30:00',1,'Jay',7676767678);
+INSERT INTO buses VALUES(9000,'TATA','Mumbai','Satara','NONAC',0,'2022-10-03 06:00:00','2022-10-03 11:30:00',1,'Vijay',8989896767);
+INSERT INTO buses VALUES(8000,'Mahindra','Mumbai','Kolhapur','AC',0,'2022-10-03 06:00:00','2022-10-03 11:30:00',1,'Prasad',9998899899);
+INSERT INTO buses VALUES(7000,'Ashok Leyland','Mumbai','Chennai','AC',0,'2022-10-03 06:00:00','2022-10-03 11:30:00',1,'Siddhu',8877887788);
+
 
 
 username And pass.
@@ -40,6 +62,7 @@ g@123
 create table customers
 (
 mob varchar(10) NOT NULL,
+refId int PRIMARY KEY AUTO_INCREMENT,
 bId int NOT NULL,
 bName varchar(20) NOT NULL,
 bRoute_From varchar(40) NOT NULL,
@@ -48,5 +71,7 @@ bType varchar(10) NOT NULL,
 bookedSeats int NOT NULL,
 bDeptDateTime datetime NOT NULL, 
 bArriDateTime datetime NOT NULL,
-bAdminId int NOT NULL
+bAdminId int NOT NULL,
+bConPerName varchar(12) NOT NULL,
+bConPerMob varchar(10) NOT NULL
 );
