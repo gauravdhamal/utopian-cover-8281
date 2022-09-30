@@ -11,12 +11,14 @@ public class Bus {
 	private String bDeptDateTime;
 	private String bArriDateTime;
 	private int bAdminId;
+	private String bConPerName;
+	private String bConPerMob;
 
 	public Bus() {
 	}
 
 	public Bus(int bId, String bName, String bRoute_From, String bRoute_To, String bType, int bSeats,
-			String bDeptDateTime, String bArriDateTime, int bAdminId) {
+			String bDeptDateTime, String bArriDateTime, int bAdminId, String bConPerName, String bConPerMob) {
 		super();
 		this.bId = bId;
 		this.bName = bName;
@@ -27,6 +29,8 @@ public class Bus {
 		this.bDeptDateTime = bDeptDateTime;
 		this.bArriDateTime = bArriDateTime;
 		this.bAdminId = bAdminId;
+		this.bConPerName = bConPerName;
+		this.bConPerMob = bConPerMob;
 	}
 
 	public int getbId() {
@@ -101,11 +105,28 @@ public class Bus {
 		this.bAdminId = bAdminId;
 	}
 
+	public String getbConPerName() {
+		return bConPerName;
+	}
+
+	public void setbConPerName(String bConPerName) {
+		this.bConPerName = bConPerName;
+	}
+
+	public String getbConPerMob() {
+		return bConPerMob;
+	}
+
+	public void setbConPerMob(String bConPerMob) {
+		this.bConPerMob = bConPerMob;
+	}
+
 	@Override
 	public String toString() {
 		return "Bus [bId=" + bId + ", bName=" + bName + ", bRoute_From=" + bRoute_From + ", bRoute_To=" + bRoute_To
 				+ ", bType=" + bType + ", bSeats=" + bSeats + ", bDeptDateTime=" + bDeptDateTime + ", bArriDateTime="
-				+ bArriDateTime + ", bAdminId=" + bAdminId + "]";
+				+ bArriDateTime + ", bAdminId=" + bAdminId + ", bConPerName=" + bConPerName + ", bConPerMob="
+				+ bConPerMob + "]";
 	}
 
 }

@@ -8,13 +8,17 @@ import com.utopian.exception.BusException;
 public interface BusDao {
 
 	public String registerNewBus(int bId, String bName, String bRoute_From, String bRoute_To, String bType, int bSeats,
-			String bDeptDateTime, String bArriDateTime, int bAdminId);
+			String bDeptDateTime, String bArriDateTime, int bAdminId, String bConPerName, String bConPerMob);
+
+	public List<Bus> getEmptyBuses() throws BusException;
+
+	public String removeBusById(int bId);
 
 	public String registerNewBus2(Bus bus);
 
 	public List<Bus> getAllBusDetails() throws BusException;
 
-	public String bookTicket(String source, String destination, int tickets) throws BusException;
+	public Bus bookTicket(String source, String destination, int tickets, String mobileNo) throws BusException;
 
 	public int noOfTicketsAval(String source, String destination);
 

@@ -3,6 +3,7 @@ package com.utopian.bean;
 public class CustomerDTO {
 
 	private String cMob;
+	private int refId;
 	private int bId;
 	private String bName;
 	private String bRoute_From;
@@ -12,16 +13,20 @@ public class CustomerDTO {
 	private String bDeptDateTime;
 	private String bArriDateTime;
 	private int bAdminId;
+	private String bConPerName;
+	private String bConPerMob;
 
 	public CustomerDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerDTO(String cMob, int bId, String bName, String bRoute_From, String bRoute_To, String bType,
-			int bookedSeats, String bDeptDateTime, String bArriDateTime, int bAdminId) {
+	public CustomerDTO(String cMob, int refId, int bId, String bName, String bRoute_From, String bRoute_To,
+			String bType, int bookedSeats, String bDeptDateTime, String bArriDateTime, int bAdminId, String bConPerName,
+			String bConPerMob) {
 		super();
 		this.cMob = cMob;
+		this.refId = refId;
 		this.bId = bId;
 		this.bName = bName;
 		this.bRoute_From = bRoute_From;
@@ -31,6 +36,8 @@ public class CustomerDTO {
 		this.bDeptDateTime = bDeptDateTime;
 		this.bArriDateTime = bArriDateTime;
 		this.bAdminId = bAdminId;
+		this.bConPerName = bConPerName;
+		this.bConPerMob = bConPerMob;
 	}
 
 	public String getcMob() {
@@ -39,6 +46,14 @@ public class CustomerDTO {
 
 	public void setcMob(String cMob) {
 		this.cMob = cMob;
+	}
+
+	public int getRefId() {
+		return refId;
+	}
+
+	public void setRefId(int refId) {
+		this.refId = refId;
 	}
 
 	public int getbId() {
@@ -113,11 +128,28 @@ public class CustomerDTO {
 		this.bAdminId = bAdminId;
 	}
 
+	public String getbConPerName() {
+		return bConPerName;
+	}
+
+	public void setbConPerName(String bConPerName) {
+		this.bConPerName = bConPerName;
+	}
+
+	public String getbConPerMob() {
+		return bConPerMob;
+	}
+
+	public void setbConPerMob(String bConPerMob) {
+		this.bConPerMob = bConPerMob;
+	}
+
 	@Override
 	public String toString() {
-		return "Customer [cMob=" + cMob + ", bId=" + bId + ", bName=" + bName + ", bRoute_From=" + bRoute_From
-				+ ", bRoute_To=" + bRoute_To + ", bType=" + bType + ", bookedSeats=" + bookedSeats + ", bDeptDateTime="
-				+ bDeptDateTime + ", bArriDateTime=" + bArriDateTime + ", bAdminId=" + bAdminId + "]";
+		return "CustomerDTO [cMob=" + cMob + ", refId=" + refId + ", bId=" + bId + ", bName=" + bName + ", bRoute_From="
+				+ bRoute_From + ", bRoute_To=" + bRoute_To + ", bType=" + bType + ", bookedSeats=" + bookedSeats
+				+ ", bDeptDateTime=" + bDeptDateTime + ", bArriDateTime=" + bArriDateTime + ", bAdminId=" + bAdminId
+				+ ", bConPerName=" + bConPerName + ", bConPerMob=" + bConPerMob + "]";
 	}
 
 }
