@@ -3,6 +3,7 @@ package com.utopian.main;
 import java.util.Scanner;
 
 import com.utopian.service.AdminService;
+import com.utopian.usecases.CancelTicketUseCase;
 
 public class BTMS {
 
@@ -12,13 +13,14 @@ public class BTMS {
 
 		System.out.println("\n<><><><>---- Main Menu ----<><><><>\n");
 
-		System.out.println("0. For Adding/Removing bus.");
+		System.out.println("0. View Admin Panel(Add/Rmove Bus, Add new admin.)");
 		System.out.println("1. View all buses.");
 		System.out.println("2. Book a ticket.");
 		System.out.println("3. Cancel a ticket.");
 		System.out.println("5. Exit");
 
 		Scanner scan = new Scanner(System.in);
+		System.out.print("\nEnter choice : ");
 		int choice = scan.nextInt();
 		scan.nextLine();
 
@@ -66,10 +68,11 @@ public class BTMS {
 			break;
 
 		case 5:
-			System.out.println("Thank You...!!!");
+			System.out.println("Thank You...!!! Visit Again.");
 			break;
 
 		default:
+			System.out.println("Select proper choice.");
 			BTMS.selectOption();
 			break;
 		}

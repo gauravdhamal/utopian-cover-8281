@@ -23,4 +23,16 @@ public interface BusDao {
 	public int noOfTicketsAval(String source, String destination);
 
 	public Bus getBus(String source, String destination);
+
+	public String cancelTicket(int refId);
+
+	public String updateBusSeats(int bId, int freeSeats);
+
+	public int getBusId(int refId);
+
+	public int getReleasedSeats(int refId);
+
+	public int checkTime(String source, String destination);
+	
+	public String getDeptTime(String source, String destination);
 }

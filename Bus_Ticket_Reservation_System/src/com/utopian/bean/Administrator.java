@@ -2,7 +2,6 @@ package com.utopian.bean;
 
 public class Administrator {
 
-	private int aId;
 	private String aName;
 	private String aAddr;
 	private String aEmail;
@@ -11,20 +10,12 @@ public class Administrator {
 	public Administrator() {
 	}
 
-	public Administrator(int aId, String aName, String aAddr, String aEmail, String aPass) {
-		this.aId = aId;
+	public Administrator(String aName, String aAddr, String aEmail, String aPass) {
+		super();
 		this.aName = aName;
 		this.aAddr = aAddr;
 		this.aEmail = aEmail;
 		this.aPass = aPass;
-	}
-
-	public int getaId() {
-		return aId;
-	}
-
-	public void setaId(int aId) {
-		this.aId = aId;
 	}
 
 	public String getaName() {
@@ -61,8 +52,7 @@ public class Administrator {
 
 	@Override
 	public String toString() {
-		return "Administrator [aId=" + aId + ", aName=" + aName + ", aAddr=" + aAddr + ", aEmail=" + aEmail + ", aPass="
-				+ aPass + "]";
+		return "Administrator [aName=" + aName + ", aAddr=" + aAddr + ", aEmail=" + aEmail + ", aPass=" + aPass + "]";
 	}
 
 }
