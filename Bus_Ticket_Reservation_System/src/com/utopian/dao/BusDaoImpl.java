@@ -80,7 +80,7 @@ public class BusDaoImpl implements BusDao {
 		}
 
 		if (buses.size() == 0)
-			throw new BusException("No any bus found with 0 seats.");
+			throw new BusException("No any bus found which is FULL.");
 
 		return buses;
 
@@ -98,7 +98,7 @@ public class BusDaoImpl implements BusDao {
 			int x = ps.executeUpdate();
 
 			if (x > 0)
-				message = " Bus with ID " + bId + " removed from database.";
+				message = "\nBus with ID " + bId + " removed from database.";
 
 		} catch (SQLException e) {
 			message = e.getMessage();
@@ -182,6 +182,17 @@ public class BusDaoImpl implements BusDao {
 
 		Bus bus = new Bus();
 
+		int timeRemaining = checkTime(source, destination);
+
+		if (timeRemaining == 0) {
+			String departureTime = getDeptTime(source, destination);
+
+			System.out.println("\nDeparture time of " + source + "-" + destination + " bus is " + departureTime);
+
+			throw new BusException(
+					"You can only book the bus prior to 24 hrs of departure time. Kindly book ticket for another bus.");
+		}
+
 		try (Connection conn = DBUtil.provideConnection()) {
 
 			PreparedStatement ps = conn
@@ -204,7 +215,6 @@ public class BusDaoImpl implements BusDao {
 				ResultSet rs2 = ps2.executeQuery();
 
 				if (rs2.next()) {
-
 					int bId = rs2.getInt("bId");
 					String bName = rs2.getString("bName");
 					String bRouteFrom = rs2.getString("bRoute_From");
@@ -228,7 +238,8 @@ public class BusDaoImpl implements BusDao {
 			if (avalTickets == 0)
 				throw new BusException("Bus is Full. Try for another one");
 			else
-				throw new BusException("Insufficient tickets available.\nOnly " + avalTickets + " tickets avaliable.");
+				throw new BusException(
+						"Insufficient tickets available.\nYou can book upto " + avalTickets + " tickets only.");
 		}
 
 		if (bus == null)
@@ -260,6 +271,56 @@ public class BusDaoImpl implements BusDao {
 		}
 
 		return avalTicket;
+	}
+
+	@Override
+	public int checkTime(String source, String destination) {
+		int time = 0;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement(
+					"SELECT TIMEDIFF ((SELECT bDeptDateTime FROM buses WHERE bRoute_From = ? AND bRoute_To = ?),LOCALTIME()) >= '24:00:00' AS diff");
+
+			ps.setString(1, source);
+			ps.setString(2, destination);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				time = rs.getInt("diff");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return time;
+	}
+
+	@Override
+	public String getDeptTime(String source, String destination) {
+		String deptTime = "0000-00-00 00:00:00";
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement(
+					"SELECT bDeptDateTime AS deptDate FROM buses WHERE bRoute_From = ? AND bRoute_To = ?");
+
+			ps.setString(1, source);
+			ps.setString(2, destination);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				deptTime = rs.getString("deptDate");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return deptTime;
 	}
 
 	@Override
@@ -299,4 +360,90 @@ public class BusDaoImpl implements BusDao {
 		return bus;
 	}
 
+	public String cancelTicket(int refId) {
+		String message = "No any booking found under ref ID " + refId + " Enter correct ID.";
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM customers WHERE refId = ?");
+
+			ps.setInt(1, refId);
+
+			int x = ps.executeUpdate();
+
+			if (x > 0)
+				message = "\nTicket with refID : " + refId + " is cancelled.\n";
+
+		} catch (SQLException e) {
+			message = e.getMessage();
+		}
+
+		return message;
+	}
+
+	public String updateBusSeats(int bId, int freeSeats) {
+		String message = "Something went wrong.";
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("UPDATE buses set bSeats = bSeats + ? WHERE bId = ?");
+
+			ps.setInt(1, freeSeats);
+			ps.setInt(2, bId);
+
+			int x = ps.executeUpdate();
+
+			if (x > 0)
+				message = "Seats updated sucessfully.";
+
+		} catch (SQLException e) {
+			message = e.getMessage();
+		}
+
+		return message;
+	}
+
+	public int getBusId(int refId) {
+		int bId = 0;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("SELECT bId FROM customers WHERE refId = ?");
+
+			ps.setInt(1, refId);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				bId = rs.getInt("bId");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return bId;
+	}
+
+	public int getReleasedSeats(int refId) {
+		int releasedSeats = 0;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("SELECT bookedSeats FROM customers WHERE refId = ?");
+
+			ps.setInt(1, refId);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				releasedSeats = rs.getInt("bookedSeats");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return releasedSeats;
+	}
 }

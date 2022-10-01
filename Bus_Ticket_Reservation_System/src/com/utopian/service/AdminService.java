@@ -5,12 +5,17 @@ import java.util.Scanner;
 
 import com.utopian.bean.Bus;
 import com.utopian.bean.CustomerDTO;
+import com.utopian.dao.AdministratorDao;
+import com.utopian.dao.AdministratorDaoImpl;
 import com.utopian.dao.BusDao;
 import com.utopian.dao.BusDaoImpl;
 import com.utopian.dao.CustomerDao;
 import com.utopian.dao.CustomerDaoImpl;
+import com.utopian.exception.AdminException;
 import com.utopian.exception.BusException;
 import com.utopian.exception.CustomerException;
+import com.utopian.usecases.CancelTicketUseCase;
+import com.utopian.usecases.RegisterAdminUseCase;
 
 public class AdminService {
 
@@ -20,6 +25,8 @@ public class AdminService {
 
 		try {
 			List<Bus> buses = bDao.getAllBusDetails();
+
+			System.out.println("\nDisplaying all buses...");
 
 			buses.forEach(b -> {
 //				System.out.println("Bus ID : " + b.getbId());
@@ -36,6 +43,16 @@ public class AdminService {
 			System.out.println(e.getMessage());
 		}
 
+	}
+
+	public static void getAdminList() {
+		AdministratorDao aDao = new AdministratorDaoImpl();
+
+		try {
+			aDao.getAllAdmin();
+		} catch (AdminException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void addBus() {
@@ -55,40 +72,40 @@ public class AdminService {
 		System.out.println("bId = 9000 AND bName = TATA");
 		System.out.println("bId = 10000 AND bName = FORCE");
 
-		System.out.println("\nEnter Bus Id : ");
+		System.out.print("\nEnter Bus Id : ");
 		int bId = scan.nextInt();
 
 		scan.nextLine();
-		System.out.println("Enter Bus Name (Enter as per Id selected): ");
+		System.out.print("Enter Bus Name (Enter as per Id selected): ");
 		String bName = scan.nextLine();
 
-		System.out.println("Enter Bus Route-From : ");
+		System.out.print("Enter Bus Route-From : ");
 		String bRoute_From = scan.nextLine();
 
-		System.out.println("Enter Bus Route-To : ");
+		System.out.print("Enter Bus Route-To : ");
 		String bRoute_To = scan.nextLine();
 
-		System.out.println("Enter Bus Type (AC or NONAC only) : ");
+		System.out.print("Enter Bus Type (AC or NONAC only) : ");
 		String bType = scan.nextLine();
 
-		System.out.println("Enter Seats Available : ");
+		System.out.print("Enter Seats Available : ");
 		int bSeats = scan.nextInt();
 
 		scan.nextLine();
-		System.out.println("Enter Departure Date & Time In proper format (yyyy-mm-dd hh:mm:ss): ");
+		System.out.print("Enter Departure Date & Time In proper format (yyyy-mm-dd hh:mm:ss): ");
 		String bDeparture_DateTime = scan.nextLine();
 
-		System.out.println("Enter Arrival Date & Time Time In proper format (yyyy-mm-dd hh:mm:ss): ");
+		System.out.print("Enter Arrival Date & Time Time In proper format (yyyy-mm-dd hh:mm:ss): ");
 		String bArrival_DateTime = scan.nextLine();
 
-		System.out.println("Enter Bus Administrator ID (1 OR 2): ");
+		System.out.print("Enter Bus Administrator ID (1 OR 2): ");
 		int bAdminId = scan.nextInt();
 
 		scan.nextLine();
-		System.out.println("Enter Contact Person name associated for bus : ");
+		System.out.print("Enter Contact Person name associated for bus : ");
 		String bConPerName = scan.nextLine();
 
-		System.out.println("Enter Contact person contact no. : ");
+		System.out.print("Enter Contact person contact no. : ");
 		String bConPerMob = scan.nextLine();
 
 		BusDao bDao = new BusDaoImpl();
@@ -119,14 +136,14 @@ public class AdminService {
 
 			int refId = AdminService.addCustomerRecord(source, destination, mobileNo, seats);
 
-			System.out.println("Hurrey...!!! Booking successful.");
+			System.out.println("\nHurrey...!!! Booking successful.");
 			System.out.println("find below confirmation details.");
-			System.out.println("Ref ID 				  : " + refId);
-			System.out.println("Bus Name 			  : " + bName);
-			System.out.println("Bus Route			  : " + route);
-			System.out.println("Booked Seats 		  : " + seats);
-			System.out.println("Arrival Time & Date   : " + bArrival);
-			System.out.println("Departure Time & Date : " + bDept);
+			System.out.println("Ref ID		: " + refId +" (Note refID for future referance.)");
+			System.out.println("Bus Name	: " + bName);
+			System.out.println("Bus Route	: " + route);
+			System.out.println("Booked Seats	: " + seats);
+			System.out.println("Arrival Time	: " + bArrival);
+			System.out.println("Departure Time	: " + bDept);
 
 			System.out.println("\nAlso note contact person details.");
 			System.out.println("Name 	    : " + bConPerName);
@@ -169,11 +186,14 @@ public class AdminService {
 				System.out.println("Mobile No 	: " + cList.getcMob());
 				System.out.println("Arrival Time 	: " + cList.getbArriDateTime());
 				System.out.println("Departure Time 	: " + cList.getbDeptDateTime());
-				System.out.println("--------------------------------------------");
+				System.out.println("--------------------------------------");
 			}
+
+			CancelTicketUseCase.selectChoice();
 
 		} catch (CustomerException e) {
 			System.out.println(e.getMessage());
+
 		}
 
 	}
@@ -189,7 +209,7 @@ public class AdminService {
 
 			totalBus = buses.size();
 
-			System.out.println("Displaying all full buses : ");
+			System.out.println("\nDisplaying all full buses : ");
 			buses.forEach(b -> {
 				int bId = b.getbId();
 				String bName = b.getbName();
@@ -219,7 +239,8 @@ public class AdminService {
 		}
 
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Enter bus ID : ");
+
+		System.out.print("\nEnter bus ID to remove bus : ");
 		int bId = scan.nextInt();
 
 		BusDao bDao = new BusDaoImpl();
@@ -232,4 +253,11 @@ public class AdminService {
 		else
 			AdminService.removeBus();
 	}
+
+	public static void registerNewAdmin() {
+
+		RegisterAdminUseCase.main(null);
+
+	}
+
 }

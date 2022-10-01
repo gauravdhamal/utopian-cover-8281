@@ -10,27 +10,23 @@ public class RegisterAdminUseCase {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Enter admin details : ");
+		System.out.println("\nEnter admin details.");
 
-		System.out.println("Enter admin ID : ");
-		int id = scan.nextInt();
-
-		scan.nextLine();
-		System.out.println("Enter admin name : ");
+		System.out.print("Enter admin name : ");
 		String name = scan.nextLine();
 
-		System.out.println("Enter admin address : ");
+		System.out.print("Enter admin address : ");
 		String addr = scan.nextLine();
 
-		System.out.println("Enter admin email : ");
+		System.out.print("Enter admin email : ");
 		String email = scan.nextLine();
 
-		System.out.println("Enter admin password : ");
+		System.out.print("Enter admin password : ");
 		String pass = scan.nextLine();
 
 		AdministratorDao adao = new AdministratorDaoImpl();
 
-		String result = adao.registerAdmin1(id, name, addr, email, pass);
+		String result = adao.registerAdmin1(name, addr, email, pass);
 
 		System.out.println(result);
 

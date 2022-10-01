@@ -15,10 +15,10 @@ public class LoginAdminUseCase {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Enter Admin Email ");
+		System.out.print("Enter Admin Email	: ");
 		String email = scan.nextLine();
 
-		System.out.println("Enter Admin Password ");
+		System.out.print("Enter Admin Password	: ");
 		String pass = scan.nextLine();
 
 		AdministratorDao aDao = new AdministratorDaoImpl();

@@ -14,10 +14,6 @@ public class RegisterAdminUseCase2 {
 
 		System.out.println("Enter admin details : ");
 
-		System.out.println("Enter admin ID : ");
-		int id = scan.nextInt();
-
-		scan.nextLine();
 		System.out.println("Enter admin name : ");
 		String name = scan.nextLine();
 
@@ -32,7 +28,7 @@ public class RegisterAdminUseCase2 {
 
 		AdministratorDao adao = new AdministratorDaoImpl();
 
-		Administrator admin = new Administrator(id, name, addr, email, pass);
+		Administrator admin = new Administrator(name, addr, email, pass);
 
 		String result = adao.registerAdmin2(admin);
 
