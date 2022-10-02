@@ -1,2 +1,2 @@
-# utopian-cover-8281
+# Bus Ticket Reservation System
 Bus Ticket Reservation System is an application in which users can book a number of tickets, and cancel a ticket from source to destination. Both book and cancel operations will be done prior 24 hours to departure date & time. An administrator can perform CRUD operations on the Buses and Admin list. He can remove the bus which doesn't have any empty seats. This mini project was built using the DAO pattern with help of java, JDBC & MySQL(database).
