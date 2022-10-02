@@ -34,5 +34,5 @@ public interface BusDao {
 
 	public int checkTime(String source, String destination);
 	
-	public String getDeptTime(String source, String destination);
+	public String getDeptTime(String source, String destination) throws BusException;
 }

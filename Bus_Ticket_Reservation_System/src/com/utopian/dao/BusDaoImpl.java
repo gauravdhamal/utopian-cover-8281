@@ -299,7 +299,7 @@ public class BusDaoImpl implements BusDao {
 	}
 
 	@Override
-	public String getDeptTime(String source, String destination) {
+	public String getDeptTime(String source, String destination) throws BusException {
 		String deptTime = "0000-00-00 00:00:00";
 
 		try (Connection conn = DBUtil.provideConnection()) {
@@ -319,6 +319,9 @@ public class BusDaoImpl implements BusDao {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+
+		if (deptTime.equals("0000-00-00 00:00:00"))
+			throw new BusException("\nEnter proper Source and destination.");
 
 		return deptTime;
 	}

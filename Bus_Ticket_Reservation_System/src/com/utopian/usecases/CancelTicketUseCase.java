@@ -14,8 +14,8 @@ public class CancelTicketUseCase {
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("\n<><><><>---- Customer Menu ----<><><><>\n");
-		System.out.println("1. Press 1 to cancel ticket.");
-		System.out.println("2. Press 2 to return to main menu.");
+		System.out.println("1. Cancel ticket.");
+		System.out.println("2. Return to main menu.");
 
 		System.out.print("\nEnter choice : ");
 		int choice = scan.nextInt();
@@ -33,7 +33,7 @@ public class CancelTicketUseCase {
 
 			System.out.println(result);
 
-			if (result.contains("Ticket with refID : ")) {
+			if (result.contains("Ticket with refID : " + refId)) {
 				bDao.updateBusSeats(bId, freeSeats);
 			}
 

@@ -3,7 +3,6 @@ package com.utopian.main;
 import java.util.Scanner;
 
 import com.utopian.service.AdminService;
-import com.utopian.usecases.CancelTicketUseCase;
 
 public class BTMS {
 
@@ -59,7 +58,7 @@ public class BTMS {
 			break;
 
 		case 3:
-			System.out.print("Enter your Mobile No :");
+			System.out.print("Enter your Mobile No : ");
 			String mob = scan.nextLine();
 
 			service.getBookings(mob);

@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.utopian.bean.Administrator;
 import com.utopian.exception.AdminException;
@@ -29,8 +27,12 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
 			int x = ps.executeUpdate();
 
-			if (x > 0)
-				message = name + " registered as Admin succesfully.";
+			if (x > 0) {
+				int adminId = this.getAdminID(email, password);
+
+				message = name + " registered as Admin succesfully.\nNote your Admin ID : " + adminId
+						+ " it will required while booking.";
+			}
 
 		} catch (SQLException e) {
 			message = e.getMessage();
@@ -66,6 +68,30 @@ public class AdministratorDaoImpl implements AdministratorDao {
 		}
 
 		return message;
+	}
+
+	@Override
+	public int getAdminID(String email, String pass) {
+		int aId = 0;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT aId FROM administrator WHERE aEmail = ? AND aPass = ?");
+
+			ps.setString(1, email);
+			ps.setString(2, pass);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				aId = rs.getInt("aId");
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return aId;
 	}
 
 	@Override
