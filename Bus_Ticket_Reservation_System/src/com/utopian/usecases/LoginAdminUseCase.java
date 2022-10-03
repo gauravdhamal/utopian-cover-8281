@@ -28,7 +28,7 @@ public class LoginAdminUseCase {
 			int adminId = aDao.getAdminID(email, pass);
 
 			System.out.println("\nCongrats " + admin.getaName() + " you logged in successfully.");
-			System.out.println("Note your admin ID : " + adminId + " required at the time of booking.");
+			System.out.println("Note your admin ID : " + adminId + " required at the time registering new bus.");
 
 			BTMS.selectOption();
 

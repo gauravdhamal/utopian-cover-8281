@@ -16,4 +16,8 @@ public interface AdministratorDao {
 	public void getAllAdmin() throws AdminException;
 
 	public int getAdminID(String email, String pass);
+
+	public String removeAdminById(int aId) throws AdminException;
+
+	public String getAdminNameById(int aId);
 }

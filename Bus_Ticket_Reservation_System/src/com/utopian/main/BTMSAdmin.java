@@ -17,7 +17,8 @@ public class BTMSAdmin {
 		System.out.println("2. Remove Full buses.");
 		System.out.println("3. Register new Admin.");
 		System.out.println("4. View all admins.");
-		System.out.println("5. Return to Main Menu.");
+		System.out.println("5. Remove admin.");
+		System.out.println("99. Return to Main Menu.");
 
 		System.out.print("\nEnter choice : ");
 		int auth = scan.nextInt();
@@ -49,6 +50,12 @@ public class BTMSAdmin {
 			break;
 
 		case 5:
+			service.removeAdminById();
+
+			BTMSAdmin.selectOption();
+			break;
+
+		case 99:
 			System.out.println("\nReturning to main menu.");
 			break;
 

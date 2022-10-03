@@ -19,9 +19,15 @@ import com.utopian.usecases.RegisterAdminUseCase;
 
 public class AdminService {
 
-	public static void viewBuses() {
+	private static BusDao bDao = new BusDaoImpl();
 
-		BusDao bDao = new BusDaoImpl();
+	private static AdministratorDao aDao = new AdministratorDaoImpl();
+
+	private static CustomerDao cDao = new CustomerDaoImpl();
+
+	static Scanner scan = new Scanner(System.in);
+
+	public static void viewBuses() {
 
 		try {
 			List<Bus> buses = bDao.getAllBusDetails();
@@ -34,8 +40,8 @@ public class AdminService {
 				System.out.println("Bus type 	: " + b.getbType());
 				System.out.println("Seats 		: " + b.getbSeats());
 				System.out.println("Bus Route 	: " + b.getbRoute_From() + "-" + b.getbRoute_To());
-//				System.out.println("Arrival Date & Time : " + b.getbArriDateTime());
-//				System.out.println("Departure Date & Time : " + b.getbDeptDateTime());
+				System.out.println("Arrival Date & Time : " + b.getbArriDateTime());
+				System.out.println("Departure Date & Time : " + b.getbDeptDateTime());
 				System.out.println("------------------------------");
 			});
 
@@ -46,7 +52,6 @@ public class AdminService {
 	}
 
 	public static void getAdminList() {
-		AdministratorDao aDao = new AdministratorDaoImpl();
 
 		try {
 			aDao.getAllAdmin();
@@ -56,8 +61,6 @@ public class AdminService {
 	}
 
 	public static void addBus() {
-
-		Scanner scan = new Scanner(System.in);
 
 		System.out.println("\nEnter new bus details : \n");
 		System.out.println("Enter proper combination of bus Id & bus Name as mentioned below : ");
@@ -108,8 +111,6 @@ public class AdminService {
 		System.out.print("Enter Contact person contact no. : ");
 		String bConPerMob = scan.nextLine();
 
-		BusDao bDao = new BusDaoImpl();
-
 		Bus bus = new Bus(bId, bName, bRoute_From, bRoute_To, bType, bSeats, bDeparture_DateTime, bArrival_DateTime,
 				bAdminId, bConPerName, bConPerMob);
 
@@ -120,8 +121,6 @@ public class AdminService {
 
 	public static void book(String source, String destination, int tickets, String mobileNo) {
 		String msg = "Booking failed.";
-
-		BusDao bDao = new BusDaoImpl();
 
 		try {
 			Bus bus = bDao.bookTicket(source, destination, tickets, mobileNo);
@@ -138,7 +137,7 @@ public class AdminService {
 
 			System.out.println("\nHurrey...!!! Booking successful.");
 			System.out.println("find below confirmation details.");
-			System.out.println("Ref ID		: " + refId +" (Note refID for future referance.)");
+			System.out.println("Ref ID		: " + refId + " (Note refID for future referance.)");
 			System.out.println("Bus Name	: " + bName);
 			System.out.println("Bus Route	: " + route);
 			System.out.println("Booked Seats	: " + seats);
@@ -156,8 +155,6 @@ public class AdminService {
 
 	public static int addCustomerRecord(String source, String destination, String mobile, int selectedSeats) {
 
-		CustomerDao cDao = new CustomerDaoImpl();
-
 		CustomerDTO customer = cDao.getCustomer(source, destination, mobile, selectedSeats);
 
 		cDao.addCustomer(customer);
@@ -168,8 +165,6 @@ public class AdminService {
 	}
 
 	public static void getBookings(String mobile) {
-
-		CustomerDao cDao = new CustomerDaoImpl();
 
 		List<CustomerDTO> customerList = null;
 
@@ -201,8 +196,6 @@ public class AdminService {
 	public static int displayFullBuses() {
 
 		int totalBus = 0;
-
-		BusDao bDao = new BusDaoImpl();
 
 		try {
 			List<Bus> buses = bDao.getEmptyBuses();
@@ -238,12 +231,8 @@ public class AdminService {
 			return;
 		}
 
-		Scanner scan = new Scanner(System.in);
-
 		System.out.print("\nEnter bus ID to remove bus : ");
 		int bId = scan.nextInt();
-
-		BusDao bDao = new BusDaoImpl();
 
 		String message = bDao.removeBusById(bId);
 		System.out.println(message);
@@ -257,6 +246,40 @@ public class AdminService {
 	public static void registerNewAdmin() {
 
 		RegisterAdminUseCase.main(null);
+
+	}
+
+	public void removeAdminById() {
+
+		this.getAdminList();
+
+		System.out.print("Enter Admin ID : ");
+		int aId = scan.nextInt();
+
+		String name = aDao.getAdminNameById(aId);
+
+		try {
+			String message = aDao.removeAdminById(aId);
+
+			System.out.println("\n" + message);
+
+			if (message.contains(" with ID : " + aId + " Removed from database.")) {
+
+				System.out.print("Want to remove more Admins (Y/N)..?? : ");
+				String choice = scan.next();
+
+				if (choice.equals("Y") || choice.equals("y")) {
+					this.removeAdminById();
+				} else {
+					System.out.println("Returning to main menu...");
+					return;
+				}
+			}
+
+		} catch (AdminException e) {
+			System.out.println("\n" + e.getMessage() + " Enter correct ID.");
+			this.removeAdminById();
+		}
 
 	}
 

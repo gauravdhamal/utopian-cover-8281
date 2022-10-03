@@ -15,7 +15,7 @@ public class Application {
 		System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
 
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Enter any to continue : ");
+		System.out.print("Enter any key to continue : ");
 		String anyKey = scan.next();
 
 		System.out.println("\nLogin as Admin first.\n");

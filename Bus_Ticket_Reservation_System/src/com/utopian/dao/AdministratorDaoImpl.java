@@ -31,7 +31,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
 				int adminId = this.getAdminID(email, password);
 
 				message = name + " registered as Admin succesfully.\nNote your Admin ID : " + adminId
-						+ " it will required while booking.";
+						+ " required at the time registering new bus.";
 			}
 
 		} catch (SQLException e) {
@@ -148,5 +148,58 @@ public class AdministratorDaoImpl implements AdministratorDao {
 		} catch (SQLException e) {
 			throw new AdminException("No any admin registered. Register first.");
 		}
+	}
+
+	@Override
+	public String removeAdminById(int aId) throws AdminException {
+
+		String message = "Admin not found with ID : " + aId;
+
+		String adminName = getAdminNameById(aId);
+
+		if (adminName.equals("null"))
+			throw new AdminException("Admin not found with ID : " + aId);
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM administrator WHERE aId = ?");
+
+			ps.setInt(1, aId);
+
+			int x = ps.executeUpdate();
+
+			if (x > 0) {
+				message = "Admin " + adminName + " with ID : " + aId + " Removed from database.";
+			}
+
+		} catch (SQLException e) {
+			message = e.getMessage();
+			e.printStackTrace();
+		}
+
+		return message;
+	}
+
+	@Override
+	public String getAdminNameById(int aId) {
+		String message = "null";
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("SELECT aName FROM administrator WHERE aId = ?");
+
+			ps.setInt(1, aId);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				message = rs.getString("aName");
+			}
+
+		} catch (SQLException e) {
+			message = e.getMessage();
+		}
+
+		return message;
 	}
 }
