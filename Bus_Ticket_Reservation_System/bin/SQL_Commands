@@ -75,3 +75,13 @@ bAdminId int NOT NULL,
 bConPerName varchar(12) NOT NULL,
 bConPerMob varchar(10) NOT NULL
 );
+
+create table customer_data
+(
+cId int PRIMARY KEY AUTO_INCREMENT,
+cName VARCHAR(12) NOT NULL,
+cAddr VARCHAR(20) NOT NULL,
+cMob VARCHAR(10) NOT NULL,
+cEmail VARCHAR(20) UNIQUE NOT NULL,
+cPass VARCHAR(20) NOT NULL
+);

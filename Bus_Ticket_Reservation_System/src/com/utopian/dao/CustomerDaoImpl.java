@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.utopian.bean.Bus;
+import com.utopian.bean.Customer;
 import com.utopian.bean.CustomerDTO;
 import com.utopian.exception.CustomerException;
 import com.utopian.utility.DBUtil;
@@ -137,5 +138,31 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		return refId;
 	}
-	
+
+	@Override
+	public String registerCustomer(Customer customer) {
+		String message = "";
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn
+					.prepareStatement("INSERT INTO customer_data (cName,cAddr,cMob,cEmail,cPass) VALUES (?,?,?,?,?)");
+
+			ps.setString(1, customer.getcName());
+			ps.setString(2, customer.getcAddr());
+			ps.setString(3, customer.getcMob());
+			ps.setString(4, customer.getcEmail());
+			ps.setString(5, customer.getcPass());
+
+			int x = ps.executeUpdate();
+
+			if (x > 0)
+				message = "Congrats " + customer.getcName() + " Registration successful...!!!";
+
+		} catch (SQLException e) {
+			message = e.getMessage();
+		}
+
+		return message;
+	}
 }

@@ -12,11 +12,12 @@ public class BTMS {
 
 		System.out.println("\n<><><><>---- Main Menu ----<><><><>\n");
 
-		System.out.println("0. View Admin Panel(Add/Rmove Bus, Add new admin.)");
-		System.out.println("1. View all buses.");
-		System.out.println("2. Book a ticket.");
-		System.out.println("3. Cancel a ticket.");
-		System.out.println("5. Exit");
+		System.out.println("1. View Admin Menu(Add/Rmove Bus, Add new admin.)");
+		System.out.println("2. View Customer Menu");
+		System.out.println("3. View all buses.");
+		System.out.println("4. Book a ticket.");
+		System.out.println("5. Cancel a ticket.");
+		System.out.println("6. Exit");
 
 		Scanner scan = new Scanner(System.in);
 		System.out.print("\nEnter choice : ");
@@ -25,19 +26,24 @@ public class BTMS {
 
 		switch (choice) {
 
-		case 0:
+		case 1:
 			BTMSAdmin.selectOption();
 
 			BTMS.selectOption();
 			break;
 
-		case 1:
+		case 2:
+			BTMSCustomer.selectOption();
+
+			break;
+
+		case 3:
 			service.viewBuses();
 
 			BTMS.selectOption();
 			break;
 
-		case 2:
+		case 4:
 
 			System.out.print("Enter source location : ");
 			String source = scan.nextLine();
@@ -57,7 +63,7 @@ public class BTMS {
 			BTMS.selectOption();
 			break;
 
-		case 3:
+		case 5:
 			System.out.print("Enter your Mobile No : ");
 			String mob = scan.nextLine();
 
@@ -66,7 +72,7 @@ public class BTMS {
 			BTMS.selectOption();
 			break;
 
-		case 5:
+		case 6:
 			System.out.println("Thank You...!!! Visit Again.");
 			break;
 
