@@ -17,4 +17,6 @@ public interface CustomerDao {
 	public int getRefID(String mob, String source, String destiny);
 
 	public String registerCustomer(Customer customer);
+
+	public Customer loginAsACustomer(String cEmail, String cPass) throws CustomerException;
 }

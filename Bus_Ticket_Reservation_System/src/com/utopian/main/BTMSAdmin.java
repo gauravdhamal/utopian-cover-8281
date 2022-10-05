@@ -6,16 +6,16 @@ import com.utopian.service.AdminService;
 
 public class BTMSAdmin {
 
-	private static AdminService service = new AdminService();
-
 	public static void selectOption() {
+
+		AdminService service = new AdminService();
 
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("\n<><><><>---- Admin Menu ----<><><><>\n");
-		System.out.println("1. Register new bus.");
-		System.out.println("2. Remove Full buses.");
-		System.out.println("3. Register new Admin.");
+		System.out.println("1. View all buses.");
+		System.out.println("2. Register new bus.");
+		System.out.println("3. Remove Full buses.");
 		System.out.println("4. View all admins.");
 		System.out.println("5. Remove admin.");
 		System.out.println("99. Return to Main Menu.");
@@ -26,19 +26,19 @@ public class BTMSAdmin {
 
 		switch (auth) {
 		case 1:
-			service.addBus();
+			service.viewBuses();
 
 			BTMSAdmin.selectOption();
 			break;
 
 		case 2:
-			service.removeBus();
+			service.addBus();
 
 			BTMSAdmin.selectOption();
 			break;
 
 		case 3:
-			service.registerNewAdmin();
+			service.removeBus();
 
 			BTMSAdmin.selectOption();
 			break;
@@ -55,12 +55,13 @@ public class BTMSAdmin {
 			BTMSAdmin.selectOption();
 			break;
 
-		case 99:
-			System.out.println("\nReturning to main menu.");
-			break;
-
 		default:
-			break;
+			System.out.println("Enter correct choice.");
+			BTMSAdmin.selectOption();
+
+		case 99:
+			System.out.println("\nReturning to main menu...\n");
+			Application.main(null);
 		}
 	}
 

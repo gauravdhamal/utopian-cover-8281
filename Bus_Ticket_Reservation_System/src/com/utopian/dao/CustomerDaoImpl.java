@@ -165,4 +165,40 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		return message;
 	}
+
+	@Override
+	public Customer loginAsACustomer(String cEmail, String cPass) throws CustomerException {
+
+		Customer customer = null;
+
+		try (Connection conn = DBUtil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM customer_data WHERE cEmail = ? AND cPass = ?");
+
+			ps.setString(1, cEmail);
+			ps.setString(2, cPass);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int cId = rs.getInt("cId");
+				String name = rs.getString("cName");
+				String addr = rs.getString("cAddr");
+				String mob = rs.getString("cMob");
+				String email = rs.getString("cEmail");
+				String pass = rs.getString("cPass");
+
+				customer = new Customer(cId, name, addr, mob, cEmail, cPass);
+			}
+
+		} catch (SQLException e) {
+			throw new CustomerException("pass not correct.");
+		}
+
+		if (customer == null)
+			throw new CustomerException("\nemail or pass not correct. Try again...\n");
+
+		return customer;
+
+	}
 }

@@ -7,7 +7,7 @@ import com.utopian.dao.AdministratorDao;
 import com.utopian.dao.AdministratorDaoImpl;
 import com.utopian.exception.AdminException;
 import com.utopian.main.Application;
-import com.utopian.main.BTMS;
+import com.utopian.main.BTMSAdmin;
 
 public class LoginAdminUseCase {
 
@@ -30,7 +30,7 @@ public class LoginAdminUseCase {
 			System.out.println("\nCongrats " + admin.getaName() + " you logged in successfully.");
 			System.out.println("Note your admin ID : " + adminId + " required at the time registering new bus.");
 
-			BTMS.selectOption();
+			BTMSAdmin.selectOption();
 
 		} catch (AdminException e) {
 			System.out.println(e.getMessage() + "\nEnter Details again\n");
